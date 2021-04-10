@@ -67,6 +67,8 @@ void Game::SetCurrentScene(std::string sceneName)
 
 void Game::ProcessInput()
 {
+	m_Input.PrepareForUpdate();
+
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -75,17 +77,19 @@ void Game::ProcessInput()
 			case SDL_QUIT:
 				m_Running = false;
 				break;
+
+			default:
+				break;
 		}
 	}
 
-	const Uint8* state = SDL_GetKeyboardState(NULL);
-	if (state[SDL_SCANCODE_ESCAPE])
+	if (m_Input.GetKeyboardState().GetKeyState(SDL_SCANCODE_ESCAPE) == EReleased)
 	{
 		m_Running = false;
 	}
 
 	// DO SOMETHING HERE
-	m_CurrentScene->ProcessInput(state);
+	m_CurrentScene->ProcessInput(m_Input);
 }
 
 void Game::Update()

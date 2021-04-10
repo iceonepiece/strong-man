@@ -9,9 +9,9 @@ public:
   YScene(Game* game): Scene(game) {}
   ~YScene() {}
 
-  void ProcessInput(const uint8_t* keyState)
+  void ProcessInput(Input& input)
   {
-    if (keyState[SDL_SCANCODE_SPACE])
+    if (input.GetKeyboardState().GetKeyState(SDL_SCANCODE_SPACE) == EPressed)
     {
       m_Game->SetCurrentScene("X");
     }

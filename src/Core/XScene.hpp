@@ -9,9 +9,9 @@ public:
   XScene(Game* game): Scene(game) {}
   ~XScene() {}
 
-  void ProcessInput(const uint8_t* keyState)
+  void ProcessInput(Input& input)
   {
-    if (keyState[SDL_SCANCODE_SPACE])
+    if (input.GetKeyboardState().GetKeyState(SDL_SCANCODE_SPACE) == EPressed)
     {
       m_Game->SetCurrentScene("Y");
     }

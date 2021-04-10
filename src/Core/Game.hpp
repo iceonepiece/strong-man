@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <string>
 #include "SDL2/SDL.h"
+#include "Input.hpp"
 
 class Game
 {
@@ -28,6 +29,7 @@ private:
 
 	SDL_Window* m_Window;
 	SDL_Renderer* m_Renderer;
+	Input m_Input;
 
 	class Scene* m_CurrentScene;
 	std::unordered_map<std::string, class Scene*> m_Scenes;
