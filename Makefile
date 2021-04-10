@@ -9,3 +9,6 @@ build: $(OBJS)
 
 run:
 	./$(OBJ_NAME)
+
+debug:
+	leaks -atExit -- ./$(OBJ_NAME)
