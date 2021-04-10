@@ -1,9 +1,12 @@
 #include "Game.hpp"
+#include "XScene.hpp"
+#include "YScene.hpp"
 
 Game::Game()
 	:m_Running(true)
 	,m_Window(nullptr)
 	,m_Renderer(nullptr)
+	,m_CurrentScene(nullptr)
 {}
 
 bool Game::Initialize()
@@ -28,6 +31,8 @@ bool Game::Initialize()
 		return false;
 	}
 
+	LoadData();
+
 	m_TicksCount = SDL_GetTicks();
 
 	return true;
@@ -45,9 +50,19 @@ void Game::Run()
 
 void Game::Shutdown()
 {
+	UnloadData();
 	SDL_DestroyRenderer(m_Renderer);
 	SDL_DestroyWindow(m_Window);
 	SDL_Quit();
+}
+
+void Game::SetCurrentScene(std::string sceneName)
+{
+	auto iter = m_Scenes.find(sceneName);
+	if (iter != m_Scenes.end())
+	{
+		m_CurrentScene = iter->second;
+	}
 }
 
 void Game::ProcessInput()
@@ -70,6 +85,7 @@ void Game::ProcessInput()
 	}
 
 	// DO SOMETHING HERE
+	m_CurrentScene->ProcessInput(state);
 }
 
 void Game::Update()
@@ -84,6 +100,7 @@ void Game::Update()
 	m_TicksCount = SDL_GetTicks();
 
 	// DO SOMETHING HERE
+	m_CurrentScene->Update(deltaTime);
 }
 
 void Game::Render()
@@ -92,6 +109,27 @@ void Game::Render()
 	SDL_RenderClear(m_Renderer);
 
 	// DO SOMETHING HERE
+	m_CurrentScene->Render(m_Renderer);
 
 	SDL_RenderPresent(m_Renderer);
+}
+
+void Game::LoadData()
+{
+	Scene* xScene = new XScene(this);
+	Scene* yScene = new YScene(this);
+
+	m_Scenes.emplace("X", xScene);
+	m_Scenes.emplace("Y", yScene);
+
+	m_CurrentScene = xScene;
+}
+
+void Game::UnloadData()
+{
+	for (auto scene : m_Scenes)
+	{
+		delete scene.second;
+	}
+	m_Scenes.clear();
 }
