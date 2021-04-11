@@ -9,20 +9,20 @@
 class Scene
 {
 public:
-  Scene(class Game* game);
-  virtual ~Scene();
+	Scene(class Game* game);
+	virtual ~Scene();
 
-  virtual void ProcessInput(Input& input) = 0;
-  void Update(float deltaTime);
-  void Render(SDL_Renderer* renderer);
+	virtual void ProcessInput(Input& input) = 0;
+	void Update(float deltaTime);
+	void Render(SDL_Renderer* renderer);
 
-  class Entity CreateEntity();
+	class Entity CreateEntity();
 
 protected:
-  class Game* m_Game;
-  entt::registry m_Registry;
+	class Game* m_Game;
+	entt::registry m_Registry;
 
-  Physics m_Physics;
+	Physics m_Physics;
 
-  friend class Entity;
+	friend class Entity;
 };
