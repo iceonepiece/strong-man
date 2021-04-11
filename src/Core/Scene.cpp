@@ -1,6 +1,7 @@
 #include "Scene.hpp"
 #include "Entity.hpp"
 #include "Components.hpp"
+#include "Renderer.hpp"
 #include <iostream>
 
 Scene::Scene(class Game* game)
@@ -48,44 +49,40 @@ void Scene::Update(float deltaTime)
 	for (auto [entity, moveComp, boxComp]: view.each())
 	{
 		b2Body* body = boxComp.Body;
-	  if (body)
-	  {
-	    b2Vec2 velocity = body->GetLinearVelocity();
-	    float desiredVelocity = 0;
+		if (body)
+		{
+			b2Vec2 velocity = body->GetLinearVelocity();
+			float desiredVelocity = 0;
 
-	    switch (moveComp.m_MoveState)
-	    {
-	      case MS_LEFT:  desiredVelocity = -80; break;
-	      case MS_IDLE:  desiredVelocity =  0; break;
-	      case MS_RIGHT: desiredVelocity =  80; break;
-	    }
+			switch (moveComp.m_MoveState)
+			{
+				case MS_LEFT:  desiredVelocity = -80; break;
+				case MS_IDLE:  desiredVelocity =  0; break;
+				case MS_RIGHT: desiredVelocity =  80; break;
+			}
 
-	    float velocityChange = desiredVelocity - velocity.x;
-	    float force = body->GetMass() * velocityChange / deltaTime;
+			float velocityChange = desiredVelocity - velocity.x;
+			float force = body->GetMass() * velocityChange / deltaTime;
 
-	    body->SetLinearVelocity(b2Vec2(desiredVelocity, velocity.y));
-	  }
+			body->SetLinearVelocity(b2Vec2(desiredVelocity, velocity.y));
+		}
 	}
 
 	m_Physics.Update(deltaTime);
 }
 
-void Scene::Render(SDL_Renderer* renderer)
+void Scene::Render(Renderer* renderer)
 {
 	auto view = m_Registry.view<const BoxComponent>();
 
 	for (auto [entity, box]: view.each())
 	{
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-		SDL_Rect rect {
+		renderer->DrawRect(
 			static_cast<int>(box.Body->GetPosition().x - (box.Width / 2)),
 			static_cast<int>(box.Body->GetPosition().y - (box.Height / 2)),
 			static_cast<int>(box.Width),
-			static_cast<int>(box.Height),
-		};
-
-		SDL_RenderFillRect(renderer, &rect);
+			static_cast<int>(box.Height)
+		);
 	}
 }
 

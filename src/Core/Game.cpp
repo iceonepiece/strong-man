@@ -1,10 +1,10 @@
 #include "Game.hpp"
+#include "Renderer.hpp"
 #include "XScene.hpp"
 #include "YScene.hpp"
 
 Game::Game()
 	:m_Running(true)
-	,m_Window(nullptr)
 	,m_Renderer(nullptr)
 	,m_CurrentScene(nullptr)
 {}
@@ -17,17 +17,12 @@ bool Game::Initialize()
 		return false;
 	}
 
-	m_Window = SDL_CreateWindow("Strong Man", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, NULL);
-	if (!m_Window)
+	m_Renderer = new Renderer();
+	if (!m_Renderer->Initialize(1280, 720))
 	{
-		SDL_Log("Failed to create window: %s", SDL_GetError());
-		return false;
-	}
-
-	m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (!m_Renderer)
-	{
-		SDL_Log("Failed to create renderer: %s", SDL_GetError());
+		SDL_Log("Failed to initialize renderer");
+		delete m_Renderer;
+		m_Renderer = nullptr;
 		return false;
 	}
 
@@ -51,8 +46,7 @@ void Game::Run()
 void Game::Shutdown()
 {
 	UnloadData();
-	SDL_DestroyRenderer(m_Renderer);
-	SDL_DestroyWindow(m_Window);
+	m_Renderer->Shutdown();
 	SDL_Quit();
 }
 
@@ -109,13 +103,12 @@ void Game::Update()
 
 void Game::Render()
 {
-	SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
-	SDL_RenderClear(m_Renderer);
+	m_Renderer->Clear();
 
 	// DO SOMETHING HERE
 	m_CurrentScene->Render(m_Renderer);
 
-	SDL_RenderPresent(m_Renderer);
+	m_Renderer->Present();
 }
 
 void Game::LoadData()

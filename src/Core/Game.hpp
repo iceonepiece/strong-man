@@ -27,8 +27,12 @@ private:
 	bool m_Running;
 	Uint32 m_TicksCount;
 
+	/*
 	SDL_Window* m_Window;
 	SDL_Renderer* m_Renderer;
+	*/
+	class Renderer* m_Renderer;
+
 	Input m_Input;
 
 	class Scene* m_CurrentScene;

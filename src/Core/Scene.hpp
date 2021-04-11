@@ -14,7 +14,7 @@ public:
 
 	void ProcessInput(Input& input);
 	void Update(float deltaTime);
-	void Render(SDL_Renderer* renderer);
+	void Render(class Renderer* renderer);
 
 	class Entity CreateEntity();
 
