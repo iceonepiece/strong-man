@@ -1,5 +1,7 @@
 #include "Renderer.hpp"
 
+const int MET2PIX = 24;
+
 Renderer::Renderer()
 	:m_Window(nullptr)
 	,m_Renderer(nullptr)
@@ -48,9 +50,16 @@ void Renderer::Present()
 	SDL_RenderPresent(m_Renderer);
 }
 
-void Renderer::DrawRect(int x, int y, int width, int height)
+void Renderer::DrawRect(float x, float y, float width, float height)
 {
 	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
-	SDL_Rect rect { x, y, width, height };
+
+	SDL_Rect rect {
+		static_cast<int>(x * MET2PIX),
+		static_cast<int>(y * MET2PIX),
+		static_cast<int>(width * MET2PIX),
+		static_cast<int>(height * MET2PIX)
+	};
+
 	SDL_RenderFillRect(m_Renderer, &rect);
 }

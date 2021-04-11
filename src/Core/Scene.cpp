@@ -1,6 +1,7 @@
 #include "Scene.hpp"
 #include "Entity.hpp"
 #include "Components.hpp"
+#include "Systems.hpp"
 #include "Renderer.hpp"
 #include <iostream>
 
@@ -22,6 +23,7 @@ void Scene::ProcessInput(Input& input)
 	for (auto [entity, inputComp, moveComp]: view.each())
 	{
 		moveComp.m_MoveState = MS_IDLE;
+		moveComp.m_Jump = false;
 
 		for (auto listener : inputComp.m_Listeners)
 		{
@@ -36,6 +38,10 @@ void Scene::ProcessInput(Input& input)
 				{
 					moveComp.m_MoveState = MS_RIGHT;
 				}
+				else if (listener.m_Command == "MOVE_JUMP")
+				{
+					moveComp.m_Jump = true;
+				}
 			}
 		}
 	}
@@ -48,24 +54,7 @@ void Scene::Update(float deltaTime)
 
 	for (auto [entity, moveComp, boxComp]: view.each())
 	{
-		b2Body* body = boxComp.Body;
-		if (body)
-		{
-			b2Vec2 velocity = body->GetLinearVelocity();
-			float desiredVelocity = 0;
-
-			switch (moveComp.m_MoveState)
-			{
-				case MS_LEFT:  desiredVelocity = -80; break;
-				case MS_IDLE:  desiredVelocity =  0; break;
-				case MS_RIGHT: desiredVelocity =  80; break;
-			}
-
-			float velocityChange = desiredVelocity - velocity.x;
-			float force = body->GetMass() * velocityChange / deltaTime;
-
-			body->SetLinearVelocity(b2Vec2(desiredVelocity, velocity.y));
-		}
+		MoveSystem(moveComp, boxComp, deltaTime);
 	}
 
 	m_Physics.Update(deltaTime);
@@ -78,10 +67,10 @@ void Scene::Render(Renderer* renderer)
 	for (auto [entity, box]: view.each())
 	{
 		renderer->DrawRect(
-			static_cast<int>(box.Body->GetPosition().x - (box.Width / 2)),
-			static_cast<int>(box.Body->GetPosition().y - (box.Height / 2)),
-			static_cast<int>(box.Width),
-			static_cast<int>(box.Height)
+			box.Body->GetPosition().x - (box.Width / 2),
+			box.Body->GetPosition().y - (box.Height / 2),
+			box.Width,
+			box.Height
 		);
 	}
 }

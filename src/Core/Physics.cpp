@@ -1,7 +1,7 @@
 #include "Physics.hpp"
 
 Physics::Physics()
-:m_World(b2Vec2(0.0f, 36.0f))
+:m_World(b2Vec2(0.0f, 24.0f))
 ,m_VelocityIterations(6)
 ,m_PositionIterations(2)
 {}

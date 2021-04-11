@@ -14,7 +14,7 @@ public:
 	void Clear();
 	void Present();
 
-	void DrawRect(int x, int y, int width, int height);
+	void DrawRect(float x, float y, float width, float height);
 
 private:
 	SDL_Window* m_Window;

@@ -11,8 +11,8 @@ public:
 	XScene(Game* game): Scene(game)
 	{
 		Entity player = CreateEntity();
-		b2Body* playerBody = m_Physics.CreateDynamicBody(50.0f, 10.0f, 100.0f, 100.0f);
-		player.AddComponent<BoxComponent>(100.0f, 100.0f, playerBody);
+		b2Body* playerBody = m_Physics.CreateDynamicBody(10.0f, 10.0f, 2.0f, 4.0f);
+		player.AddComponent<BoxComponent>(2.0f, 4.0f, playerBody);
 		player.AddComponent<MoveComponent>();
 
 		InputListener moveLeft;
@@ -25,7 +25,12 @@ public:
 		moveRight.m_ButtonState = EHeld;
 		moveRight.m_Command = "MOVE_RIGHT";
 
-		std::vector<InputListener> listeners { moveLeft, moveRight };
+		InputListener moveJump;
+		moveJump.m_KeyCode = SDL_SCANCODE_SPACE;
+		moveJump.m_ButtonState = EPressed;
+		moveJump.m_Command = "MOVE_JUMP";
+
+		std::vector<InputListener> listeners { moveLeft, moveRight, moveJump };
 		player.AddComponent<InputComponent>(listeners);
 
 		struct InputListener
@@ -36,8 +41,8 @@ public:
 		};
 
 		Entity tile_1 = CreateEntity();
-		b2Body* tileBody_1 = m_Physics.CreateStaticBody(50.0f, 400.0f, 500.0f, 50.0f);
-		tile_1.AddComponent<BoxComponent>(500.0f, 50.0f, tileBody_1);
+		b2Body* tileBody_1 = m_Physics.CreateStaticBody(10.0f, 30.0f, 50.0f, 5.0f);
+		tile_1.AddComponent<BoxComponent>(50.0f, 5.0f, tileBody_1);
 		tile_1.AddComponent<MoveComponent>();
 	}
 
