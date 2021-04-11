@@ -12,7 +12,7 @@ public:
 	Scene(class Game* game);
 	virtual ~Scene();
 
-	virtual void ProcessInput(Input& input) = 0;
+	void ProcessInput(Input& input);
 	void Update(float deltaTime);
 	void Render(SDL_Renderer* renderer);
 

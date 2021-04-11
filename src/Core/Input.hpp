@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <SDL2/SDL.h>
 
 enum ButtonState
@@ -8,6 +9,13 @@ enum ButtonState
 	EPressed,
 	EReleased,
 	EHeld
+};
+
+struct InputListener
+{
+	SDL_Scancode m_KeyCode;
+	ButtonState m_ButtonState;
+	std::string m_Command;
 };
 
 class KeyboardState
