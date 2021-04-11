@@ -2,7 +2,9 @@
 
 #include <vector>
 #include <SDL2/SDL.h>
+#include "../External/entt/entt.hpp"
 #include "Input.hpp"
+#include "Physics.hpp"
 
 class Scene
 {
@@ -11,11 +13,16 @@ public:
   virtual ~Scene();
 
   virtual void ProcessInput(Input& input) = 0;
-  virtual void Update(float deltaTime) = 0;
-  virtual void Render(SDL_Renderer* renderer) = 0;
+  void Update(float deltaTime);
+  void Render(SDL_Renderer* renderer);
+
+  class Entity CreateEntity();
 
 protected:
   class Game* m_Game;
+  entt::registry m_Registry;
 
-  std::vector<class Entity*> m_Entities;
+  Physics m_Physics;
+
+  friend class Entity;
 };

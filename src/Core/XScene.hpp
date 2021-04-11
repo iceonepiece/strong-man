@@ -2,11 +2,19 @@
 
 #include "Scene.hpp"
 #include "Game.hpp"
+#include "Entity.hpp"
+#include "Components.hpp"
 
 class XScene : public Scene
 {
 public:
-  XScene(Game* game): Scene(game) {}
+  XScene(Game* game): Scene(game)
+  {
+    Entity player = CreateEntity();
+    b2Body* playerBody = m_Physics.CreateBody(10.0f, 10.0f, 100.0f, 100.0f);
+    player.AddComponent<BoxComponent>(100.0f, 100.0f, playerBody);
+  }
+
   ~XScene() {}
 
   void ProcessInput(Input& input)
@@ -15,17 +23,5 @@ public:
     {
       m_Game->SetCurrentScene("Y");
     }
-  }
-
-  void Update(float deltaTime)
-  {
-
-  }
-
-  void Render(SDL_Renderer* renderer)
-  {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_Rect rect { 200, 200, 200, 200 };
-    SDL_RenderFillRect(renderer, &rect);
   }
 };
