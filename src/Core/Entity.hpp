@@ -11,8 +11,8 @@ public:
 	template<typename T, typename... Args>
 	T& AddComponent(Args&&... args)
 	{
-	T& component = m_Scene->m_Registry.emplace<T>(m_Id, std::forward<Args>(args)...);
-	return component;
+		T& component = m_Scene->m_Registry.emplace<T>(m_Id, std::forward<Args>(args)...);
+		return component;
 	}
 
 private:

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+#include "Fixture.hpp"
 #include "Scene.hpp"
 #include "Game.hpp"
 #include "Entity.hpp"
@@ -11,8 +13,10 @@ public:
 	XScene(Game* game): Scene(game)
 	{
 		Entity player = CreateEntity();
-		b2Body* playerBody = m_Physics.CreateDynamicBody(10.0f, 10.0f, 2.0f, 4.0f);
-		player.AddComponent<BoxComponent>(2.0f, 4.0f, playerBody);
+
+		Fixture fixture_1 { 2.0f, 4.0f, 0.0f, 0.0f, false };
+		std::vector<Fixture> fixtures { fixture_1 };
+		player.AddComponent<BoxComponent>(m_Physics.CreateDynamicBody(1.0f, 10.0f, fixtures));
 		player.AddComponent<MoveComponent>();
 
 		InputListener moveLeft;
@@ -41,9 +45,9 @@ public:
 		};
 
 		Entity tile_1 = CreateEntity();
-		b2Body* tileBody_1 = m_Physics.CreateStaticBody(10.0f, 30.0f, 50.0f, 5.0f);
-		tile_1.AddComponent<BoxComponent>(50.0f, 5.0f, tileBody_1);
-		tile_1.AddComponent<MoveComponent>();
+		Fixture tileFixture_1 { 50.0f, 5.0f, 0.0f, 0.0f, false };
+		std::vector<Fixture> tileFixtures { tileFixture_1 };
+		tile_1.AddComponent<BoxComponent>(m_Physics.CreateStaticBody(26.0f, 30.0f, tileFixtures));
 	}
 
 	~XScene() {}

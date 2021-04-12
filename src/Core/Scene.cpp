@@ -66,12 +66,7 @@ void Scene::Render(Renderer* renderer)
 
 	for (auto [entity, box]: view.each())
 	{
-		renderer->DrawRect(
-			box.Body->GetPosition().x - (box.Width / 2),
-			box.Body->GetPosition().y - (box.Height / 2),
-			box.Width,
-			box.Height
-		);
+		renderer->DrawBody(box.Body);
 	}
 }
 

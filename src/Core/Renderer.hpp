@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <box2d/box2d.h>
 
 class Renderer
 {
@@ -15,6 +16,7 @@ public:
 	void Present();
 
 	void DrawRect(float x, float y, float width, float height);
+	void DrawBody(b2Body* body);
 
 private:
 	SDL_Window* m_Window;

@@ -1,6 +1,7 @@
 #include "Renderer.hpp"
+#include <iostream>
 
-const int MET2PIX = 24;
+const int MET2PIX = 16;
 
 Renderer::Renderer()
 	:m_Window(nullptr)
@@ -62,4 +63,23 @@ void Renderer::DrawRect(float x, float y, float width, float height)
 	};
 
 	SDL_RenderFillRect(m_Renderer, &rect);
+}
+
+void Renderer::DrawBody(b2Body* body)
+{
+	b2Fixture* fixture = body->GetFixtureList();
+	b2Vec2 position = body->GetPosition();
+
+	while (fixture)
+	{
+	 	b2PolygonShape* shape = (b2PolygonShape*)fixture->GetShape();
+		float width = shape->m_vertices[1].x - shape->m_vertices[0].x;
+		float height = shape->m_vertices[2].y - shape->m_vertices[0].y;
+		float x = position.x - (width / 2);
+		float y = position.y - (height / 2);
+		
+		DrawRect(x, y, width, height);
+
+		fixture = fixture->GetNext();
+	}
 }

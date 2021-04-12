@@ -1,4 +1,5 @@
 #include "Physics.hpp"
+#include <iostream>
 
 Physics::Physics()
 :m_World(b2Vec2(0.0f, 24.0f))
@@ -11,37 +12,62 @@ void Physics::Update(float deltaTime)
 	m_World.Step(deltaTime, m_VelocityIterations, m_PositionIterations);
 }
 
-b2Body* Physics::CreateDynamicBody(float x, float y, float width, float height)
+b2Body* Physics::CreateDynamicBody(float x, float y, std::vector<Fixture> fixtures)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x, y);
-
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(width / 2, height / 2);
-
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicBox;
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.0f;
-
 	b2Body* body = m_World.CreateBody(&bodyDef);
-	body->SetFixedRotation(true);
-	body->CreateFixture(&fixtureDef);
+
+	for (auto fixture : fixtures)
+	{
+		b2PolygonShape shape;
+		shape.SetAsBox(
+			fixture.m_Width / 2,
+			fixture.m_Height / 2,
+			b2Vec2(fixture.m_XOffset, fixture.m_YOffet),
+			0
+		);
+
+		b2FixtureDef fixtureDef;
+		fixtureDef.shape = &shape;
+		fixtureDef.density = 1.0f;
+		fixtureDef.friction = 0.0f;
+		fixtureDef.isSensor = fixture.m_IsSensor;
+
+		body->SetFixedRotation(true);
+		body->CreateFixture(&fixtureDef);
+	}
 
 	return body;
 }
 
-b2Body* Physics::CreateStaticBody(float x, float y, float width, float height)
+b2Body* Physics::CreateStaticBody(float x, float y, std::vector<Fixture> fixtures)
 {
 	b2BodyDef bodyDef;
+	bodyDef.type = b2_staticBody;
 	bodyDef.position.Set(x, y);
-
-	b2PolygonShape shape;
-	shape.SetAsBox(width / 2, height / 2);
-
 	b2Body* body = m_World.CreateBody(&bodyDef);
-  body->CreateFixture(&shape, 0.0f);
+
+	for (auto fixture : fixtures)
+	{
+		b2PolygonShape shape;
+		shape.SetAsBox(
+			fixture.m_Width / 2,
+			fixture.m_Height / 2,
+			b2Vec2(fixture.m_XOffset, fixture.m_YOffet),
+			0
+		);
+
+		b2FixtureDef fixtureDef;
+		fixtureDef.shape = &shape;
+		fixtureDef.density = 1.0f;
+		fixtureDef.friction = 0.0f;
+		fixtureDef.isSensor = fixture.m_IsSensor;
+
+		body->SetFixedRotation(true);
+		body->CreateFixture(&fixtureDef);
+	}
 
 	return body;
 }
