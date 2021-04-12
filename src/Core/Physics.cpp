@@ -2,7 +2,7 @@
 #include <iostream>
 
 Physics::Physics()
-:m_World(b2Vec2(0.0f, 24.0f))
+:m_World(b2Vec2(0.0f, 30.0f))
 ,m_VelocityIterations(6)
 ,m_PositionIterations(2)
 {}
@@ -34,6 +34,11 @@ b2Body* Physics::CreateDynamicBody(float x, float y, std::vector<Fixture> fixtur
 		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 0.0f;
 		fixtureDef.isSensor = fixture.m_IsSensor;
+
+		if (fixtureDef.isSensor)
+		{
+			fixtureDef.density = 0.0f;
+		}
 
 		body->SetFixedRotation(true);
 		body->CreateFixture(&fixtureDef);

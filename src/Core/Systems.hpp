@@ -1,5 +1,8 @@
 #pragma once
 
+const int PLAYER_MOVE_SPEED = 10;
+const int PLAYER_JUMP_FORCE = 36;
+
 void MoveSystem(MoveComponent& moveComp, BoxComponent& boxComp, float deltaTime)
 {
 	b2Body* body = boxComp.Body;
@@ -10,9 +13,9 @@ void MoveSystem(MoveComponent& moveComp, BoxComponent& boxComp, float deltaTime)
 
 		switch (moveComp.m_MoveState)
 		{
-			case MS_LEFT:  desiredVelocity = -16; break;
+			case MS_LEFT:  desiredVelocity = -PLAYER_MOVE_SPEED; break;
 			case MS_IDLE:  desiredVelocity =  0; break;
-			case MS_RIGHT: desiredVelocity =  16; break;
+			case MS_RIGHT: desiredVelocity =  PLAYER_MOVE_SPEED; break;
 		}
 
 		float velocityChange = desiredVelocity - velocity.x;
@@ -23,7 +26,7 @@ void MoveSystem(MoveComponent& moveComp, BoxComponent& boxComp, float deltaTime)
 		if (moveComp.m_Jump)
 		{
 			body->ApplyLinearImpulse(
-				b2Vec2(0, -150),
+				b2Vec2(0, -PLAYER_JUMP_FORCE),
 				body->GetWorldCenter(),
 				true
 			);

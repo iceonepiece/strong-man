@@ -1,7 +1,11 @@
 #include "Renderer.hpp"
 #include <iostream>
 
-const int MET2PIX = 16;
+const int MET2PIX = 32;
+const b2Vec3 COLOR_SCREEN_BG = b2Vec3(69, 82, 108);
+const b2Vec3 COLOR_DYNAMIC = b2Vec3(248, 245, 241);
+const b2Vec3 COLOR_STATIC = b2Vec3(90, 168, 151);
+const b2Vec3 COLOR_SENSOR = b2Vec3(248, 164, 136);
 
 Renderer::Renderer()
 	:m_Window(nullptr)
@@ -42,7 +46,7 @@ void Renderer::Shutdown()
 
 void Renderer::Clear()
 {
-	SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(m_Renderer, COLOR_SCREEN_BG.x, COLOR_SCREEN_BG.y, COLOR_SCREEN_BG.z, 255);
 	SDL_RenderClear(m_Renderer);
 }
 
@@ -51,9 +55,9 @@ void Renderer::Present()
 	SDL_RenderPresent(m_Renderer);
 }
 
-void Renderer::DrawRect(float x, float y, float width, float height)
+void Renderer::DrawRect(float x, float y, float width, float height, b2Vec3 color)
 {
-	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(m_Renderer, color.x, color.y, color.z, 255);
 
 	SDL_Rect rect {
 		static_cast<int>(x * MET2PIX),
@@ -77,8 +81,19 @@ void Renderer::DrawBody(b2Body* body)
 		float height = shape->m_vertices[2].y - shape->m_vertices[0].y;
 		float x = position.x - (width / 2);
 		float y = position.y - (height / 2);
-		
-		DrawRect(x, y, width, height);
+
+ 		if (fixture->IsSensor())
+		{
+			DrawRect(x, y, width, height, COLOR_SENSOR);
+		}
+		else if (body->GetType() == b2_dynamicBody)
+		{
+			DrawRect(x, y, width, height, COLOR_DYNAMIC);
+		}
+		else
+		{
+			DrawRect(x, y, width, height, COLOR_STATIC);
+		}
 
 		fixture = fixture->GetNext();
 	}

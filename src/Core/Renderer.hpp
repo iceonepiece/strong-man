@@ -15,7 +15,7 @@ public:
 	void Clear();
 	void Present();
 
-	void DrawRect(float x, float y, float width, float height);
+	void DrawRect(float x, float y, float width, float height, b2Vec3 color = b2Vec3(255, 255, 255));
 	void DrawBody(b2Body* body);
 
 private:

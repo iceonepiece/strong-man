@@ -14,8 +14,9 @@ public:
 	{
 		Entity player = CreateEntity();
 
-		Fixture fixture_1 { 2.0f, 4.0f, 0.0f, 0.0f, false };
-		std::vector<Fixture> fixtures { fixture_1 };
+		Fixture bodyFixture { 1.0f, 2.0f, 0.0f, 0.0f, false };
+		Fixture footFixture { 1.0f, 3.0f, 0.0f, 0.0f, true };
+		std::vector<Fixture> fixtures { bodyFixture, footFixture };
 		player.AddComponent<BoxComponent>(m_Physics.CreateDynamicBody(1.0f, 10.0f, fixtures));
 		player.AddComponent<MoveComponent>();
 
@@ -45,9 +46,9 @@ public:
 		};
 
 		Entity tile_1 = CreateEntity();
-		Fixture tileFixture_1 { 50.0f, 5.0f, 0.0f, 0.0f, false };
+		Fixture tileFixture_1 { 20.0f, 2.0f, 0.0f, 0.0f, false };
 		std::vector<Fixture> tileFixtures { tileFixture_1 };
-		tile_1.AddComponent<BoxComponent>(m_Physics.CreateStaticBody(26.0f, 30.0f, tileFixtures));
+		tile_1.AddComponent<BoxComponent>(m_Physics.CreateStaticBody(10.0f, 20.0f, tileFixtures));
 	}
 
 	~XScene() {}
