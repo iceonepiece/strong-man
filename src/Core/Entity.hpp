@@ -15,6 +15,8 @@ public:
 		return component;
 	}
 
+	Scene* GetScene() { return m_Scene; }
+
 private:
 	entt::entity m_Id;
 	Scene* m_Scene;

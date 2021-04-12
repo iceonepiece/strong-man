@@ -16,6 +16,8 @@ public:
 	void Update(float deltaTime);
 	void Render(class Renderer* renderer);
 
+	Physics& GetPhysics() { return m_Physics; }
+
 	class Entity CreateEntity();
 
 protected:
