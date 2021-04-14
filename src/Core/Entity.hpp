@@ -6,7 +6,12 @@
 class Entity
 {
 public:
-	Entity(entt::entity id, Scene* scene): m_Id(id), m_Scene(scene) {}
+	Entity(Scene* scene)
+		:m_Scene(scene)
+		,m_Id(scene->m_Registry.create())
+	{
+
+	}
 
 	template<typename T, typename... Args>
 	T& AddComponent(Args&&... args)
@@ -16,8 +21,9 @@ public:
 	}
 
 	Scene* GetScene() { return m_Scene; }
+	entt::entity GetId() { return m_Id; }
 
-private:
+protected:
 	entt::entity m_Id;
 	Scene* m_Scene;
 };

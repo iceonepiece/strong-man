@@ -17,8 +17,7 @@ public:
 	void Render(class Renderer* renderer);
 
 	Physics& GetPhysics() { return m_Physics; }
-
-	class Entity CreateEntity();
+	entt::registry& GetRegistry() { return m_Registry; }
 
 protected:
 	class Game* m_Game;

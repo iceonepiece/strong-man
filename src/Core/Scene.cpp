@@ -69,9 +69,3 @@ void Scene::Render(Renderer* renderer)
 		renderer->DrawBody(box.Body);
 	}
 }
-
-Entity Scene::CreateEntity()
-{
-	Entity entity = Entity(m_Registry.create(), this);
-	return entity;
-}

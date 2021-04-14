@@ -79,8 +79,8 @@ void Renderer::DrawBody(b2Body* body)
 	 	b2PolygonShape* shape = (b2PolygonShape*)fixture->GetShape();
 		float width = shape->m_vertices[1].x - shape->m_vertices[0].x;
 		float height = shape->m_vertices[2].y - shape->m_vertices[0].y;
-		float x = position.x - (width / 2);
-		float y = position.y - (height / 2);
+		float x = position.x - (width / 2) + shape->m_centroid.x;
+		float y = position.y - (height / 2) + shape->m_centroid.y;
 
  		if (fixture->IsSensor())
 		{

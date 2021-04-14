@@ -1,7 +1,9 @@
 #pragma once
 
+#include <iostream>
+
 const int PLAYER_MOVE_SPEED = 10;
-const int PLAYER_JUMP_FORCE = 36;
+const int PLAYER_JUMP_FORCE = 32;
 
 void MoveSystem(MoveComponent& moveComp, BoxComponent& boxComp, float deltaTime)
 {
@@ -23,7 +25,9 @@ void MoveSystem(MoveComponent& moveComp, BoxComponent& boxComp, float deltaTime)
 
 		body->SetLinearVelocity(b2Vec2(desiredVelocity, velocity.y));
 
-		if (moveComp.m_Jump)
+		//std::cout << "m_NumGrounds: << " << moveComp.m_NumGrounds << std::endl;
+
+		if (moveComp.m_Jump && moveComp.m_NumGrounds > 0)
 		{
 			body->ApplyLinearImpulse(
 				b2Vec2(0, -PLAYER_JUMP_FORCE),

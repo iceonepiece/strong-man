@@ -13,8 +13,9 @@ struct MoveComponent
 {
 	MoveState m_MoveState;
 	bool m_Jump;
+	int m_NumGrounds;
 
-	MoveComponent(): m_MoveState(MS_IDLE), m_Jump(false) {}
+	MoveComponent(): m_MoveState(MS_IDLE), m_Jump(false), m_NumGrounds(0) {}
 };
 
 struct InputComponent
