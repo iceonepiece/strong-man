@@ -5,6 +5,7 @@
 #include "../External/entt/entt.hpp"
 #include "Input.hpp"
 #include "Physics.hpp"
+#include "Camera.hpp"
 
 class Scene
 {
@@ -24,6 +25,7 @@ protected:
 	entt::registry m_Registry;
 
 	Physics m_Physics;
+	Camera m_Camera;
 
 	friend class Entity;
 };

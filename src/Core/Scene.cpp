@@ -3,10 +3,12 @@
 #include "Components.hpp"
 #include "Systems.hpp"
 #include "Renderer.hpp"
+#include "Game.hpp"
 #include <iostream>
 
-Scene::Scene(class Game* game)
+Scene::Scene(Game* game)
 	:m_Game(game)
+	,m_Camera(0.0f, 0.0f, m_Game->GetScreenWidth(), m_Game->GetScreenHeight())
 {
 
 }
@@ -58,6 +60,8 @@ void Scene::Update(float deltaTime)
 	}
 
 	m_Physics.Update(deltaTime);
+
+	m_Camera.Update();
 }
 
 void Scene::Render(Renderer* renderer)
@@ -66,6 +70,6 @@ void Scene::Render(Renderer* renderer)
 
 	for (auto [entity, box]: view.each())
 	{
-		renderer->DrawBody(box.Body);
+		renderer->DrawBody(box.Body, m_Camera);
 	}
 }

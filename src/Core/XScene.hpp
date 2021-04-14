@@ -20,6 +20,10 @@ public:
 		m_Tiles.emplace_back(new TileEntity(this, b2Vec2(12.0f, 20.0f), b2Vec2(20.0f, 2.0f)));
 		m_Tiles.emplace_back(new TileEntity(this, b2Vec2(12.0f, 18.0f), b2Vec2(2.0f, 5.0f)));
 		m_Tiles.emplace_back(new TileEntity(this, b2Vec2(18.0f, 16.0f), b2Vec2(2.0f, 8.0f)));
+
+		auto &boxComp = m_Registry.get<BoxComponent>(m_Player->GetId());
+		m_Camera.SetTargetBody(boxComp.Body);
+
 		//m_Player = new PlayerEntity(this);
 	}
 

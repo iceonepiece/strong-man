@@ -55,21 +55,23 @@ void Renderer::Present()
 	SDL_RenderPresent(m_Renderer);
 }
 
-void Renderer::DrawRect(float x, float y, float width, float height, b2Vec3 color)
+void Renderer::DrawRect(float x, float y, float width, float height, Camera& camera, b2Vec3 color)
 {
 	SDL_SetRenderDrawColor(m_Renderer, color.x, color.y, color.z, 255);
 
+	unsigned int pixelPerMetre = camera.GetPixelPerMetre();
+
 	SDL_Rect rect {
-		static_cast<int>(x * MET2PIX),
-		static_cast<int>(y * MET2PIX),
-		static_cast<int>(width * MET2PIX),
-		static_cast<int>(height * MET2PIX)
+		static_cast<int>(x * pixelPerMetre - camera.GetX()),
+		static_cast<int>(y * pixelPerMetre - camera.GetY()),
+		static_cast<int>(width * pixelPerMetre),
+		static_cast<int>(height * pixelPerMetre)
 	};
 
 	SDL_RenderFillRect(m_Renderer, &rect);
 }
 
-void Renderer::DrawBody(b2Body* body)
+void Renderer::DrawBody(b2Body* body, Camera& camera)
 {
 	b2Fixture* fixture = body->GetFixtureList();
 	b2Vec2 position = body->GetPosition();
@@ -79,20 +81,20 @@ void Renderer::DrawBody(b2Body* body)
 	 	b2PolygonShape* shape = (b2PolygonShape*)fixture->GetShape();
 		float width = shape->m_vertices[1].x - shape->m_vertices[0].x;
 		float height = shape->m_vertices[2].y - shape->m_vertices[0].y;
-		float x = position.x - (width / 2) + shape->m_centroid.x;
-		float y = position.y - (height / 2) + shape->m_centroid.y;
+		float x = (position.x - (width / 2) + shape->m_centroid.x);
+		float y = (position.y - (height / 2) + shape->m_centroid.y);
 
  		if (fixture->IsSensor())
 		{
-			DrawRect(x, y, width, height, COLOR_SENSOR);
+			DrawRect(x, y, width, height, camera, COLOR_SENSOR);
 		}
 		else if (body->GetType() == b2_dynamicBody)
 		{
-			DrawRect(x, y, width, height, COLOR_DYNAMIC);
+			DrawRect(x, y, width, height, camera, COLOR_DYNAMIC);
 		}
 		else
 		{
-			DrawRect(x, y, width, height, COLOR_STATIC);
+			DrawRect(x, y, width, height, camera, COLOR_STATIC);
 		}
 
 		fixture = fixture->GetNext();

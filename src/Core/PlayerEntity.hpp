@@ -25,9 +25,8 @@ public:
 		m_FixtureData = new PlayerFixtureData(this);
 		Fixture bodyFixture(b2Vec2(1.0f, 2.0f), b2Vec2(0.0f, 0.0f));
 		bodyFixture.SetFixtureData(m_FixtureData);
-
-		Fixture footFixture(b2Vec2(0.5f, 1.0f), b2Vec2(0.0f, 0.0f), true);
 		std::vector<Fixture> fixtures { bodyFixture };
+
 		AddComponent<BoxComponent>(m_Scene->GetPhysics().CreateDynamicBody(1.0f, 10.0f, fixtures));
 		AddComponent<MoveComponent>();
 

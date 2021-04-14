@@ -15,6 +15,8 @@ public:
 	void Shutdown();
 
 	void SetCurrentScene(std::string sceneName);
+	unsigned int GetScreenWidth() { return m_ScreenWidth; }
+	unsigned int GetScreenHeight() { return m_ScreenHeight; }
 
 private:
 	void ProcessInput();
@@ -26,6 +28,8 @@ private:
 
 	bool m_Running;
 	Uint32 m_TicksCount;
+	unsigned int m_ScreenWidth;
+	unsigned int m_ScreenHeight;
 
 	/*
 	SDL_Window* m_Window;

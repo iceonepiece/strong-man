@@ -7,6 +7,8 @@ Game::Game()
 	:m_Running(true)
 	,m_Renderer(nullptr)
 	,m_CurrentScene(nullptr)
+	,m_ScreenWidth(1280)
+	,m_ScreenHeight(720)
 {}
 
 bool Game::Initialize()
@@ -18,7 +20,7 @@ bool Game::Initialize()
 	}
 
 	m_Renderer = new Renderer();
-	if (!m_Renderer->Initialize(1280, 720))
+	if (!m_Renderer->Initialize(m_ScreenWidth, m_ScreenHeight))
 	{
 		SDL_Log("Failed to initialize renderer");
 		delete m_Renderer;
