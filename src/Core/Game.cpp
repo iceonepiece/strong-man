@@ -49,6 +49,7 @@ void Game::Shutdown()
 {
 	UnloadData();
 	m_Renderer->Shutdown();
+	delete m_Renderer;
 	SDL_Quit();
 }
 
