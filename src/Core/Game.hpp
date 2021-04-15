@@ -31,10 +31,6 @@ private:
 	unsigned int m_ScreenWidth;
 	unsigned int m_ScreenHeight;
 
-	/*
-	SDL_Window* m_Window;
-	SDL_Renderer* m_Renderer;
-	*/
 	class Renderer* m_Renderer;
 
 	Input m_Input;

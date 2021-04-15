@@ -6,14 +6,19 @@
 class YScene : public Scene
 {
 public:
-	YScene(Game* game): Scene(game) {}
-	~YScene() {}
-
-	void ProcessInput(Input& input)
+	YScene(Game* game): Scene(game), m_Player(nullptr)
 	{
-		if (input.GetKeyboardState().GetKeyState(SDL_SCANCODE_SPACE) == EPressed)
-		{
-			m_Game->SetCurrentScene("X");
-		}
+		std::cout << "Y SCNE" << std::endl;
+		//m_Player = new PlayerEntity(this);
+		//auto &boxComp = m_Registry.get<BoxComponent>(m_Player->GetId());
+		//m_Camera.SetTargetBody(boxComp.Body);
 	}
+
+	~YScene()
+	{
+		//delete m_Player;
+	}
+
+private:
+	PlayerEntity* m_Player;
 };

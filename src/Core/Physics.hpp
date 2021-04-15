@@ -24,22 +24,6 @@ class ContactListener : public b2ContactListener
       fixtureDataA->BeginContact(fixtureDataB, contact, true);
       fixtureDataB->BeginContact(fixtureDataA, contact, false);
     }
-
-    /*
-    int numPoints = contact->GetManifold()->pointCount;
-
-    b2WorldManifold worldManifold;
-    contact->GetWorldManifold( &worldManifold );
-
-    std::cout << "normal: " << worldManifold.normal.x << " : " << worldManifold.normal.y << std::endl;
-    for (int i = 0; i < numPoints; i++)
-    {
-      std::cout << worldManifold.points[i].x << " : " << worldManifold.points[i].y << std::endl;
-    }
-    */
-
-    //std::cout << fixtureUserDataA.pointer << std::endl;
-    //std::cout << fixtureUserDataB.pointer << std::endl;
 	}
 
 	void EndContact(b2Contact* contact)

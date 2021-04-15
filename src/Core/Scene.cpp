@@ -51,7 +51,13 @@ void Scene::ProcessInput(Input& input)
 
 void Scene::Update(float deltaTime)
 {
-	// check movements
+	auto aiView = m_Registry.view<AIComponent>();
+
+	for (auto [entity, aiComp]: aiView.each())
+	{
+		aiComp.m_BehaviorRoot->Tick();
+	}
+
 	auto view = m_Registry.view<MoveComponent, BoxComponent>();
 
 	for (auto [entity, moveComp, boxComp]: view.each())

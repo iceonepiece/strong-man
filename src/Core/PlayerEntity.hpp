@@ -80,11 +80,8 @@ private:
 
 void PlayerFixtureData::BeginContact(FixtureData* otherFixtureData, b2Contact* contact, bool isA)
 {
-	std::cout << "PlayerFixtureData BeginContact(): " << m_Tag << std::endl;
-
 	b2WorldManifold worldManifold;
 	contact->GetWorldManifold( &worldManifold );
-	std::cout << "normal: " << worldManifold.normal.x << " : " << worldManifold.normal.y << std::endl;
 
 	int yTarget = 1;
 	if (!isA) {
@@ -96,8 +93,6 @@ void PlayerFixtureData::BeginContact(FixtureData* otherFixtureData, b2Contact* c
 		((PlayerEntity*)m_Entity)->AddGroundFixtures(otherFixtureData);
 		auto &moveComp = m_Entity->GetScene()->GetRegistry().get<MoveComponent>(m_Entity->GetId());
 		moveComp.m_NumGrounds++;
-
-		std::cout << "moveComp.m_NumGrounds: " << moveComp.m_NumGrounds << " target: " << yTarget << std::endl;
 	}
 }
 
@@ -109,6 +104,5 @@ void PlayerFixtureData::EndContact(FixtureData* otherFixtureData, b2Contact* con
 	{
 		auto &moveComp = m_Entity->GetScene()->GetRegistry().get<MoveComponent>(m_Entity->GetId());
 		moveComp.m_NumGrounds--;
-		std::cout << "moveComp.m_NumGrounds: " << moveComp.m_NumGrounds << std::endl;
 	}
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Behavior.hpp"
+
 struct BoxComponent
 {
 	b2Body* Body;
@@ -23,4 +25,9 @@ struct InputComponent
 	std::vector<InputListener> m_Listeners;
 
 	InputComponent(std::vector<InputListener> listeners): m_Listeners(listeners) {}
+};
+
+struct AIComponent
+{
+	Behavior* m_BehaviorRoot;
 };
