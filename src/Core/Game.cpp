@@ -2,6 +2,7 @@
 #include "Renderer.hpp"
 #include "XScene.hpp"
 #include "YScene.hpp"
+#include "../Game/Scenes/MenuScene.hpp"
 
 Game::Game()
 	:m_Running(true)
@@ -116,13 +117,15 @@ void Game::Render()
 
 void Game::LoadData()
 {
+	Scene* menuScene = new MenuScene(this);
 	Scene* xScene = new XScene(this);
 	Scene* yScene = new YScene(this);
 
+	m_Scenes.emplace("MENU", menuScene);
 	m_Scenes.emplace("X", xScene);
 	m_Scenes.emplace("Y", yScene);
 
-	m_CurrentScene = xScene;
+	m_CurrentScene = menuScene;
 }
 
 void Game::UnloadData()

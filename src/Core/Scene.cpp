@@ -4,18 +4,23 @@
 #include "Systems.hpp"
 #include "Renderer.hpp"
 #include "Game.hpp"
+#include "UI.hpp"
 #include <iostream>
 
 Scene::Scene(Game* game)
 	:m_Game(game)
 	,m_Camera(0.0f, 0.0f, m_Game->GetScreenWidth(), m_Game->GetScreenHeight())
 {
-
+	
 }
 
 Scene::~Scene()
 {
-
+	for (auto ui : m_UIs)
+	{
+		delete ui;
+	}
+	m_UIs.clear();
 }
 
 void Scene::ProcessInput(Input& input)
@@ -77,5 +82,10 @@ void Scene::Render(Renderer* renderer)
 	for (auto [entity, box]: view.each())
 	{
 		renderer->DrawBody(box.Body, m_Camera);
+	}
+
+	for (auto ui : m_UIs)
+	{
+		ui->Draw(renderer);
 	}
 }

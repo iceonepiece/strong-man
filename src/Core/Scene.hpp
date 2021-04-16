@@ -22,6 +22,8 @@ public:
 
 protected:
 	class Game* m_Game;
+	std::vector<class UI*> m_UIs;
+
 	entt::registry m_Registry;
 
 	Physics m_Physics;

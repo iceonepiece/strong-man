@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <box2d/box2d.h>
 #include "Camera.hpp"
 
@@ -19,7 +20,11 @@ public:
 	void DrawRect(float x, float y, float width, float height, Camera& camera, b2Vec3 color = b2Vec3(255, 255, 255));
 	void DrawBody(b2Body* body, Camera& camera);
 
+	SDL_Renderer* GetSDLRenderer() { return m_Renderer; }
+	TTF_Font* GetTTFFont() { return m_Font; }
+
 private:
 	SDL_Window* m_Window;
 	SDL_Renderer* m_Renderer;
+	TTF_Font* m_Font;
 };
