@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Renderer.hpp"
+#include "Font.hpp"
 #include "XScene.hpp"
 #include "YScene.hpp"
 #include "../Game/Scenes/MenuScene.hpp"
@@ -26,6 +27,12 @@ bool Game::Initialize()
 		SDL_Log("Failed to initialize renderer");
 		delete m_Renderer;
 		m_Renderer = nullptr;
+		return false;
+	}
+
+	if (TTF_Init() != 0)
+	{
+		SDL_Log("Failed to initialize SDL_ttf");
 		return false;
 	}
 
@@ -117,6 +124,15 @@ void Game::Render()
 
 void Game::LoadData()
 {
+	Font* font = new Font();
+	font->Load("src/Assets/DroidSans.ttf");
+
+	Font* boldFont = new Font();
+	boldFont->Load("src/Assets/DroidSans-Bold.ttf");
+
+	m_Fonts.emplace("DROIDSANS", font);
+	m_Fonts.emplace("DROIDSANS_BOLD", boldFont);
+
 	Scene* menuScene = new MenuScene(this);
 	Scene* xScene = new XScene(this);
 	Scene* yScene = new YScene(this);
@@ -130,9 +146,27 @@ void Game::LoadData()
 
 void Game::UnloadData()
 {
+	for (auto font : m_Fonts)
+	{
+		font.second->Unload();
+		delete font.second;
+	}
+
 	for (auto scene : m_Scenes)
 	{
 		delete scene.second;
 	}
 	m_Scenes.clear();
+}
+
+Font* Game::GetFont(const std::string& name)
+{
+	std::cout << "Game::GetFont()" << std::endl;
+	auto iter = m_Fonts.find(name);
+	if (iter != m_Fonts.end())
+	{
+		return iter->second;
+	}
+
+	return nullptr;
 }

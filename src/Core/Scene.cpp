@@ -11,7 +11,7 @@ Scene::Scene(Game* game)
 	:m_Game(game)
 	,m_Camera(0.0f, 0.0f, m_Game->GetScreenWidth(), m_Game->GetScreenHeight())
 {
-	
+
 }
 
 Scene::~Scene()
@@ -51,6 +51,11 @@ void Scene::ProcessInput(Input& input)
 				}
 			}
 		}
+	}
+
+	for (auto ui : m_UIs)
+	{
+		ui->ProcessInput(input);
 	}
 }
 

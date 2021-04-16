@@ -1,15 +1,21 @@
 #pragma once
 
+#include <string>
+#include <unordered_map>
 #include <SDL2/SDL_ttf.h>
-#include "UI.hpp"
+#include <box2d/box2d.h>
 
-class Font : public UI
+class Font
 {
 public:
-  Font(std::string text, float x, float y);
-  void Draw(Renderer* renderer);
+  Font();
+  ~Font();
+
+  bool Load(const std::string& fileName);
+	void Unload();
+
+  void RenderText(SDL_Renderer* renderer, const std::string& text, const b2Vec2& position, const b2Vec3& color, unsigned int size);
 
 private:
-  std::string m_Text;
-  SDL_Texture* m_Texture;
+  std::unordered_map<int, TTF_Font*> m_FontData;
 };

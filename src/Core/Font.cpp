@@ -1,40 +1,81 @@
+#include <vector>
 #include "Font.hpp"
+#include <iostream>
 
-TTF_Font *gFont = NULL;
-
-Font::Font(std::string text, float x, float y)
-  :UI(x, y)
-  ,m_Text(text)
-  ,m_Texture(nullptr)
+Font::Font()
 {
-
+	std::cout << "Font constructor" << std::endl;
 }
 
-void Font::Draw(Renderer* renderer)
+Font::~Font()
 {
-  SDL_Color sdlColor;
-  sdlColor.r = static_cast<Uint8>(255);
-  sdlColor.g = static_cast<Uint8>(255);
-  sdlColor.b = static_cast<Uint8>(255);
-  sdlColor.a = 255;
+	std::cout << "Font destructor" << std::endl;
+}
 
-  SDL_Surface* textSurface = TTF_RenderText_Solid(renderer->GetTTFFont(), m_Text.c_str(), sdlColor);
-  if( textSurface == NULL )
-  {
-    SDL_Log("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
-  }
-  else
-  {
-    m_Texture = SDL_CreateTextureFromSurface(renderer->GetSDLRenderer(), textSurface);
+bool Font::Load(const std::string& fileName)
+{
+	std::vector<int> fontSizes = { 16, 18, 24, 36, 48, 64, 72 };
 
-    if( m_Texture == NULL )
-    {
-      SDL_Log("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
-    }
+	for (auto& size : fontSizes)
+	{
+		TTF_Font* font = TTF_OpenFont(fileName.c_str(), size);
 
-    SDL_Rect renderQuad = { static_cast<int>(m_X), static_cast<int>(m_Y), 340, 36 };
-    SDL_RenderCopy(renderer->GetSDLRenderer(), m_Texture, NULL, &renderQuad);
-    SDL_FreeSurface(textSurface);
-  }
+		if (font == nullptr)
+		{
+			SDL_Log("Failed to load font %s in size %d", fileName.c_str(), size);
+			return false;
+		}
+		m_FontData.emplace(size, font);
+	}
 
+	return true;
+}
+
+void Font::Unload()
+{
+	std::cout << "Font::Unload(): " << m_FontData.size() << std::endl;
+	for (auto& font : m_FontData)
+	{
+		TTF_CloseFont(font.second);
+	}
+}
+
+void Font::RenderText(
+	SDL_Renderer* renderer,
+	const std::string& text,
+	const b2Vec2& position,
+	const b2Vec3& color,
+	unsigned int size
+)
+{
+	SDL_Color sdlColor;
+	sdlColor.r = static_cast<Uint8>(color.x);
+	sdlColor.g = static_cast<Uint8>(color.y);
+	sdlColor.b = static_cast<Uint8>(color.z);
+	sdlColor.a = 255;
+
+	auto iter = m_FontData.find(size);
+	if (iter != m_FontData.end())
+	{
+		TTF_Font* font = iter->second;
+
+		SDL_Surface* textSurface = TTF_RenderUTF8_Blended(font, text.c_str(), sdlColor);
+		if (textSurface != nullptr)
+		{
+			SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, textSurface);
+			SDL_Rect renderQuad = {
+				static_cast<int>(position.x),
+				static_cast<int>(position.y),
+				textSurface->w,
+				textSurface->h
+			};
+	    SDL_RenderCopy(renderer, texture, NULL, &renderQuad);
+	    SDL_FreeSurface(textSurface);
+		}
+
+	}
+	else
+	{
+		SDL_Log("Font size %d is unsupported", size);
+	}
 }

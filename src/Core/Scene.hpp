@@ -20,9 +20,13 @@ public:
 	Physics& GetPhysics() { return m_Physics; }
 	entt::registry& GetRegistry() { return m_Registry; }
 
+	class Font* GetFont(const std::string& fileName);
+
 protected:
 	class Game* m_Game;
+
 	std::vector<class UI*> m_UIs;
+	std::unordered_map<std::string, class Font*> m_Fonts;
 
 	entt::registry m_Registry;
 

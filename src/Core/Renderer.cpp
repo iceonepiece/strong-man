@@ -42,13 +42,6 @@ bool Renderer::Initialize(int screenWidth, int screenHeight)
 		return false;
 	}
 
-	m_Font = TTF_OpenFont("src/Assets/DroidSans-Bold.ttf", 64);
-	if (m_Font == nullptr)
-	{
-		SDL_Log("Failed to load font");
-		return false;
-	}
-
 	return true;
 }
 
@@ -56,8 +49,6 @@ void Renderer::Shutdown()
 {
 	SDL_DestroyRenderer(m_Renderer);
 	SDL_DestroyWindow(m_Window);
-
-	TTF_CloseFont(m_Font);
 	TTF_Quit();
 }
 

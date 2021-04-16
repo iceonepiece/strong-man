@@ -21,10 +21,8 @@ public:
 	void DrawBody(b2Body* body, Camera& camera);
 
 	SDL_Renderer* GetSDLRenderer() { return m_Renderer; }
-	TTF_Font* GetTTFFont() { return m_Font; }
 
 private:
 	SDL_Window* m_Window;
 	SDL_Renderer* m_Renderer;
-	TTF_Font* m_Font;
 };
