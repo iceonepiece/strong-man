@@ -9,7 +9,10 @@
 
 Scene::Scene(Game* game)
 	:m_Game(game)
-	,m_Camera(0.0f, 0.0f, m_Game->GetScreenWidth(), m_Game->GetScreenHeight())
+	,m_Camera(
+		vec2(0.0f, 0.0f),
+		vec2((float)m_Game->GetScreenWidth(), (float)m_Game->GetScreenHeight())
+	)
 {
 
 }

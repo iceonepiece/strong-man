@@ -3,10 +3,10 @@
 #include <iostream>
 
 const int MET2PIX = 32;
-const b2Vec3 COLOR_SCREEN_BG = b2Vec3(69, 82, 108);
-const b2Vec3 COLOR_DYNAMIC = b2Vec3(248, 245, 241);
-const b2Vec3 COLOR_STATIC = b2Vec3(90, 168, 151);
-const b2Vec3 COLOR_SENSOR = b2Vec3(248, 164, 136);
+const vec3 COLOR_SCREEN_BG = vec3(69, 82, 108);
+const vec3 COLOR_DYNAMIC = vec3(248, 245, 241);
+const vec3 COLOR_STATIC = vec3(90, 168, 151);
+const vec3 COLOR_SENSOR = vec3(248, 164, 136);
 
 Renderer::Renderer()
 	:m_Window(nullptr)
@@ -63,15 +63,16 @@ void Renderer::Present()
 	SDL_RenderPresent(m_Renderer);
 }
 
-void Renderer::DrawRect(float x, float y, float width, float height, Camera& camera, b2Vec3 color)
+void Renderer::DrawRect(float x, float y, float width, float height, Camera& camera, vec3 color)
 {
 	SDL_SetRenderDrawColor(m_Renderer, color.x, color.y, color.z, 255);
 
 	unsigned int pixelPerMetre = camera.GetPixelPerMetre();
+	vec2 position = camera.GetPosition();
 
 	SDL_Rect rect {
-		static_cast<int>(x * pixelPerMetre - camera.GetX()),
-		static_cast<int>(y * pixelPerMetre - camera.GetY()),
+		static_cast<int>(x * pixelPerMetre - position.x),
+		static_cast<int>(y * pixelPerMetre - position.y),
 		static_cast<int>(width * pixelPerMetre),
 		static_cast<int>(height * pixelPerMetre)
 	};

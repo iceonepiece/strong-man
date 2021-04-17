@@ -1,14 +1,14 @@
 #pragma once
 
 #include <vector>
-#include "Fixture.hpp"
-#include "Scene.hpp"
-#include "Game.hpp"
-#include "Entity.hpp"
-#include "Components.hpp"
-#include "TileEntity.hpp"
-#include "PlayerEntity.hpp"
-#include "EnemyEntity.hpp"
+#include "../../Core/Fixture.hpp"
+#include "../../Core/Scene.hpp"
+#include "../../Core/Game.hpp"
+#include "../../Core/Entity.hpp"
+#include "../../Core/Components.hpp"
+#include "../../Core/TileEntity.hpp"
+#include "../../Core/PlayerEntity.hpp"
+#include "../../Core/EnemyEntity.hpp"
 
 class XScene : public Scene
 {

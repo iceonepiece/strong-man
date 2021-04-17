@@ -43,8 +43,8 @@ void Font::Unload()
 void Font::RenderText(
 	SDL_Renderer* renderer,
 	const std::string& text,
-	const b2Vec2& position,
-	const b2Vec3& color,
+	const vec2& position,
+	const vec3& color,
 	unsigned int size
 )
 {

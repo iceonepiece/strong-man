@@ -1,16 +1,15 @@
 #pragma once
 
 #include <box2d/box2d.h>
+#include "Math.hpp"
 #include <iostream>
 
 class Camera
 {
 public:
-  Camera(float x, float y, float screenWidth, float screenHeight)
-    :m_X(0.0f)
-    ,m_Y(0.0f)
-    ,m_ScreenWidth(screenWidth)
-    ,m_ScreenHeight(screenHeight)
+  Camera(vec2 position, vec2 screenSize)
+    :m_Position(position)
+    ,m_ScreenSize(screenSize)
     ,m_PixelPerMetre(32)
     ,m_TargetBody(nullptr)
   {}
@@ -20,8 +19,8 @@ public:
     if (m_TargetBody)
     {
       b2Vec2 position = m_TargetBody->GetPosition();
-      m_X = position.x * m_PixelPerMetre - (m_ScreenWidth / 2);
-      m_Y = position.y * m_PixelPerMetre - (m_ScreenHeight / 2);
+      m_Position.x = position.x * m_PixelPerMetre - (m_ScreenSize.x / 2);
+      m_Position.y = position.y * m_PixelPerMetre - (m_ScreenSize.y / 2);
     }
   }
 
@@ -30,15 +29,12 @@ public:
     m_TargetBody = body;
   }
 
-  float GetX() { return m_X; }
-  float GetY() { return m_Y; }
+  const vec2& GetPosition() { return m_Position; }
   unsigned int GetPixelPerMetre() { return m_PixelPerMetre; }
 
 private:
-  float m_X;
-  float m_Y;
-  float m_ScreenWidth;
-  float m_ScreenHeight;
+  vec2 m_Position;
+  vec2 m_ScreenSize;
   unsigned int m_PixelPerMetre;
   b2Body* m_TargetBody;
 };

@@ -7,7 +7,7 @@ class Button : public UI
 {
 public:
   Button(Scene* scene)
-    :UI(scene, 0.0f, 0.0f)
+    :UI(scene, vec2(0.0f, 0.0f))
   {
   }
 

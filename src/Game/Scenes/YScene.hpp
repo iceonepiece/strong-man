@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Scene.hpp"
-#include "Game.hpp"
+#include "../../Core/Scene.hpp"
+#include "../../Core/Game.hpp"
 
 class YScene : public Scene
 {

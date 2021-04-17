@@ -4,6 +4,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <box2d/box2d.h>
 #include "Camera.hpp"
+#include "Math.hpp"
 
 class Renderer
 {
@@ -17,7 +18,7 @@ public:
 	void Clear();
 	void Present();
 
-	void DrawRect(float x, float y, float width, float height, Camera& camera, b2Vec3 color = b2Vec3(255, 255, 255));
+	void DrawRect(float x, float y, float width, float height, Camera& camera, vec3 color = vec3(255, 255, 255));
 	void DrawBody(b2Body* body, Camera& camera);
 
 	SDL_Renderer* GetSDLRenderer() { return m_Renderer; }

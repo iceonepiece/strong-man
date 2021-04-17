@@ -1,12 +1,13 @@
 #pragma once
 
 #include "../Renderer.hpp"
+#include "../UI.hpp"
 
 class Text : public UI
 {
 public:
   Text(Scene* scene, std::string value, Font* font, unsigned int size = 18)
-    :UI(scene, 0.0f, 0.0f)
+    :UI(scene, vec2(0.0f, 0.0f))
     ,m_Value(value)
     ,m_Size(size)
     ,m_Font(font)
@@ -23,8 +24,8 @@ public:
     m_Font->RenderText(
       renderer->GetSDLRenderer(),
       m_Value,
-      b2Vec2(m_X, m_Y),
-      b2Vec3(255, 255, 255),
+      m_Position,
+      vec3(255, 255, 255),
       m_Size
     );
   }

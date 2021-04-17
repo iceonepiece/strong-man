@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../Core/Math.hpp"
 #include "../../Core/Game.hpp"
 #include "../../Core/Scene.hpp"
 #include "../../Core/UI.hpp"
@@ -16,10 +17,10 @@ public:
     Font* boldFont = m_Game->GetFont("DROIDSANS_BOLD");
 
     Text* directedByText = new Text(this, "DIRECTED BY", font, 24);
-    directedByText->SetPosition(40, 20);
+    directedByText->SetPosition(vec2(40, 20));
 
     Text* directorText = new Text(this, "KIM MI YOUNG", boldFont, 36);
-    directorText->SetPosition(40, 60);
+    directorText->SetPosition(vec2(40, 60));
 
     m_UIs.emplace_back(directedByText);
     m_UIs.emplace_back(directorText);

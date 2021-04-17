@@ -1,8 +1,8 @@
 #include "Game.hpp"
 #include "Renderer.hpp"
 #include "Font.hpp"
-#include "XScene.hpp"
-#include "YScene.hpp"
+#include "../Game/Scenes/XScene.hpp"
+#include "../Game/Scenes/YScene.hpp"
 #include "../Game/Scenes/MenuScene.hpp"
 
 Game::Game()
@@ -141,7 +141,7 @@ void Game::LoadData()
 	m_Scenes.emplace("X", xScene);
 	m_Scenes.emplace("Y", yScene);
 
-	m_CurrentScene = menuScene;
+	m_CurrentScene = xScene;
 }
 
 void Game::UnloadData()

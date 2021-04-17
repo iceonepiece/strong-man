@@ -1,27 +1,22 @@
 #pragma once
 
+#include "Math.hpp"
+
 class UI
 {
 public:
-  UI(class Scene* scene, float x, float y)
+  UI(class Scene* scene, vec2 position)
     :m_Scene(scene)
-    ,m_X(x)
-    ,m_Y(y)
+    ,m_Position(position)
   {}
   virtual ~UI() {}
 
   virtual void ProcessInput(class Input& input) = 0;
   virtual void Draw(class Renderer* renderer) = 0;
 
-  void SetPosition(float x, float y)
-  {
-    m_X = x;
-    m_Y = y;
-  }
+  void SetPosition(vec2 position) { m_Position = position; }
 
 protected:
-  float m_X;
-  float m_Y;
-
+  vec2 m_Position;
   class Scene* m_Scene;
 };

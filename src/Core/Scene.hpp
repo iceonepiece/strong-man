@@ -3,6 +3,7 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include "../External/entt/entt.hpp"
+#include "Math.hpp"
 #include "Input.hpp"
 #include "Physics.hpp"
 #include "Camera.hpp"
