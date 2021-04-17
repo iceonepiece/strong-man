@@ -2,16 +2,16 @@
 
 #include "../../Core/Math.hpp"
 #include "../../Core/Game.hpp"
-#include "../../Core/Scene.hpp"
+#include "UIScene.hpp"
 #include "../../Core/UI.hpp"
 #include "../../Core/UIs/Text.hpp"
 #include "../../Core/UIs/Menu.hpp"
 
-class MenuScene : public Scene
+class MainMenuScene : public UIScene
 {
 public:
-  MenuScene(Game* game)
-    :Scene(game)
+  MainMenuScene(Game* game)
+    :UIScene(game)
   {
     Font* font = m_Game->GetFont("DROIDSANS");
     Font* boldFont = m_Game->GetFont("DROIDSANS_BOLD");

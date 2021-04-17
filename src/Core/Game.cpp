@@ -1,9 +1,7 @@
 #include "Game.hpp"
 #include "Renderer.hpp"
 #include "Font.hpp"
-#include "../Game/Scenes/XScene.hpp"
-#include "../Game/Scenes/YScene.hpp"
-#include "../Game/Scenes/MenuScene.hpp"
+#include "Scene.hpp"
 
 Game::Game()
 	:m_Running(true)
@@ -11,7 +9,14 @@ Game::Game()
 	,m_CurrentScene(nullptr)
 	,m_ScreenWidth(1280)
 	,m_ScreenHeight(720)
-{}
+{
+
+}
+
+Game::~Game()
+{
+
+}
 
 bool Game::Initialize()
 {
@@ -120,43 +125,6 @@ void Game::Render()
 	m_CurrentScene->Render(m_Renderer);
 
 	m_Renderer->Present();
-}
-
-void Game::LoadData()
-{
-	Font* font = new Font();
-	font->Load("src/Assets/DroidSans.ttf");
-
-	Font* boldFont = new Font();
-	boldFont->Load("src/Assets/DroidSans-Bold.ttf");
-
-	m_Fonts.emplace("DROIDSANS", font);
-	m_Fonts.emplace("DROIDSANS_BOLD", boldFont);
-
-	Scene* menuScene = new MenuScene(this);
-	Scene* xScene = new XScene(this);
-	Scene* yScene = new YScene(this);
-
-	m_Scenes.emplace("MENU", menuScene);
-	m_Scenes.emplace("X", xScene);
-	m_Scenes.emplace("Y", yScene);
-
-	m_CurrentScene = xScene;
-}
-
-void Game::UnloadData()
-{
-	for (auto font : m_Fonts)
-	{
-		font.second->Unload();
-		delete font.second;
-	}
-
-	for (auto scene : m_Scenes)
-	{
-		delete scene.second;
-	}
-	m_Scenes.clear();
 }
 
 Font* Game::GetFont(const std::string& name)

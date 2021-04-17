@@ -10,6 +10,7 @@ class Game
 {
 public:
 	Game();
+	virtual ~Game();
 
 	bool Initialize();
 	void Run();
@@ -21,13 +22,9 @@ public:
 
 	class Font* GetFont(const std::string& name);
 
-private:
-	void ProcessInput();
-	void Update();
-	void Render();
-
-	void LoadData();
-	void UnloadData();
+protected:
+	virtual void LoadData() = 0;
+	virtual void UnloadData() = 0;
 
 	bool m_Running;
 	Uint32 m_TicksCount;
@@ -42,4 +39,9 @@ private:
 	std::unordered_map<std::string, class Scene*> m_Scenes;
 
 	std::unordered_map<std::string, class Font*> m_Fonts;
+
+private:
+	void ProcessInput();
+	void Update();
+	void Render();
 };

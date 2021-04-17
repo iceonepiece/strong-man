@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
-#include "Entity.hpp"
-#include "Fixture.hpp"
+#include "../../Core/Entity.hpp"
+#include "../../Core/Fixture.hpp"
+#include "../Components/Components.hpp"
 
 class PlayerFixtureData : public FixtureData
 {

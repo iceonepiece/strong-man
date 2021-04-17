@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Behavior.hpp"
+#include <vector>
+#include "../../Core/Behavior.hpp"
+#include "../../Core/Input.hpp"
 
 struct BoxComponent
 {

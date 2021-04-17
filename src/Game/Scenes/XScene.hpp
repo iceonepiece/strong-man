@@ -2,19 +2,19 @@
 
 #include <vector>
 #include "../../Core/Fixture.hpp"
-#include "../../Core/Scene.hpp"
 #include "../../Core/Game.hpp"
 #include "../../Core/Entity.hpp"
-#include "../../Core/Components.hpp"
-#include "../../Core/TileEntity.hpp"
-#include "../../Core/PlayerEntity.hpp"
-#include "../../Core/EnemyEntity.hpp"
+#include "../Components/Components.hpp"
+#include "../Entities/TileEntity.hpp"
+#include "../Entities/PlayerEntity.hpp"
+#include "../Entities/EnemyEntity.hpp"
+#include "LevelScene.hpp"
 
-class XScene : public Scene
+class XScene : public LevelScene
 {
 public:
 	XScene(Game* game)
-		:Scene(game)
+		:LevelScene(game)
 		,m_Player(nullptr)
 	{
 		m_Player = new PlayerEntity(this);

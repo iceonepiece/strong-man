@@ -1,8 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include "Entity.hpp"
-#include "Fixture.hpp"
+#include "../../Core/Entity.hpp"
+#include "../../Core/Fixture.hpp"
+#include "../Components/Components.hpp"
 
 class TileEntity : public Entity
 {

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Behaviors.hpp"
+#include "../../Core/Behaviors.hpp"
+#include "../Components/Components.hpp"
 
 class EnemyEntity : public Entity
 {

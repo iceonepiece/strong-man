@@ -14,9 +14,9 @@ public:
 	Scene(class Game* game);
 	virtual ~Scene();
 
-	void ProcessInput(Input& input);
-	void Update(float deltaTime);
-	void Render(class Renderer* renderer);
+	virtual void ProcessInput(Input& input) = 0;
+	virtual void Update(float deltaTime) = 0;
+	virtual void Render(class Renderer* renderer) = 0;
 
 	Physics& GetPhysics() { return m_Physics; }
 	entt::registry& GetRegistry() { return m_Registry; }
