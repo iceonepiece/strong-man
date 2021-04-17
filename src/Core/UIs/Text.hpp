@@ -20,7 +20,6 @@ public:
 
   void Draw(class Renderer* renderer)
   {
-    std::cout << "Text: " << m_Value << " is drawn on the screen." << std::endl;
     m_Font->RenderText(
       renderer->GetSDLRenderer(),
       m_Value,

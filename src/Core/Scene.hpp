@@ -18,6 +18,7 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render(class Renderer* renderer) = 0;
 
+	class Game* GetGame() { return m_Game; }
 	Physics& GetPhysics() { return m_Physics; }
 	entt::registry& GetRegistry() { return m_Registry; }
 

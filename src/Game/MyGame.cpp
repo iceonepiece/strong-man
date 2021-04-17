@@ -18,9 +18,9 @@ void MyGame::LoadData()
 	Scene* xScene = new XScene(this);
 
 	m_Scenes.emplace("MENU", menuScene);
-	m_Scenes.emplace("X", xScene);
+	m_Scenes.emplace("LEVEL_1", xScene);
 
-	m_CurrentScene = xScene;
+	m_CurrentScene = menuScene;
 }
 
 void MyGame::UnloadData()

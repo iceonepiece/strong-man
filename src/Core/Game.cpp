@@ -69,8 +69,9 @@ void Game::Shutdown()
 void Game::SetCurrentScene(std::string sceneName)
 {
 	auto iter = m_Scenes.find(sceneName);
-	if (iter != m_Scenes.end())
+	if (iter != m_Scenes.end() && iter->second != m_CurrentScene)
 	{
+		std::cout << "CHANGE SCENE TO: " << sceneName << std::endl;
 		m_CurrentScene = iter->second;
 	}
 }
