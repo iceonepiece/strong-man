@@ -21,6 +21,7 @@ public:
 	unsigned int GetScreenHeight() { return m_ScreenHeight; }
 
 	class Font* GetFont(const std::string& name);
+	class Audio* GetAudio() { return m_Audio; }
 
 protected:
 	virtual void LoadData() = 0;
@@ -32,6 +33,7 @@ protected:
 	unsigned int m_ScreenHeight;
 
 	class Renderer* m_Renderer;
+	class Audio* m_Audio;
 
 	Input m_Input;
 

@@ -2,6 +2,7 @@
 #include "Renderer.hpp"
 #include "Font.hpp"
 #include "Scene.hpp"
+#include "Audio.hpp"
 
 Game::Game()
 	:m_Running(true)
@@ -35,6 +36,15 @@ bool Game::Initialize()
 		return false;
 	}
 
+	m_Audio = new Audio();
+	if (!m_Audio->Initialize())
+	{
+		SDL_Log("Failed to initialize audio");
+		delete m_Audio;
+		m_Audio = nullptr;
+		return false;
+	}
+
 	if (TTF_Init() != 0)
 	{
 		SDL_Log("Failed to initialize SDL_ttf");
@@ -61,8 +71,13 @@ void Game::Run()
 void Game::Shutdown()
 {
 	UnloadData();
+
+	m_Audio->Shutdown();
+	delete m_Audio;
+
 	m_Renderer->Shutdown();
 	delete m_Renderer;
+	
 	SDL_Quit();
 }
 

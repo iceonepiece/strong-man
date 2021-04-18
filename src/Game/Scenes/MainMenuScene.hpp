@@ -2,6 +2,7 @@
 
 #include "../../Core/Math.hpp"
 #include "../../Core/Game.hpp"
+#include "../../Core/Audio.hpp"
 #include "UIScene.hpp"
 #include "../../Core/UI.hpp"
 #include "../../Core/UIs/Text.hpp"
@@ -32,7 +33,8 @@ public:
       [](class Game* game)
       {
         std::cout << "start onEnter()" << std::endl;
-        game->SetCurrentScene("LEVEL_1");
+        game->GetAudio()->PlayMusic("level");
+        //game->SetCurrentScene("LEVEL_1");
       }
     );
 
@@ -41,6 +43,7 @@ public:
       [](class Game* game)
       {
         std::cout << "options onEnter()" << std::endl;
+        game->GetAudio()->PlaySound("notification");
       }
     );
 
