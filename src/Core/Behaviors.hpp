@@ -2,32 +2,11 @@
 
 #include "Behavior.hpp"
 
-class MockBehavior : public Behavior
-{
-public:
-  Status Update()
-  {
-    std::cout << "MockBehavior Update()" << std::endl;
-    return BH_RUNNING;
-  }
-};
-
-
 class Composite : public Behavior
 {
 public:
-  virtual ~Composite()
-  {
-    std::cout << "Composite destructor()" << std::endl;
-    for (auto child : m_Children)
-  	{
-  		delete child;
-  	}
-  	m_Children.clear();
-  }
-
+  Composite(class Scene* scene) : Behavior(scene) {}
   void AddChild(Behavior* child) { m_Children.push_back(child); }
-  //void removeChild(Behavior*);
 
 protected:
   std::vector<Behavior*> m_Children;
@@ -36,6 +15,8 @@ protected:
 class Selector : public Composite
 {
 public:
+  Selector(class Scene* scene) : Composite(scene) {}
+
   void OnIntialize()
   {
     m_CurrentChild = m_Children.begin();
@@ -65,6 +46,8 @@ private:
 class Sequence : public Composite
 {
 public:
+  Sequence(class Scene* scene) : Composite(scene) {}
+
   void OnIntialize()
   {
     m_CurrentChild = m_Children.begin();
@@ -94,7 +77,7 @@ private:
 class ShoutAction : public Behavior
 {
 public:
-  ShoutAction(std::string text): m_Text(text) {}
+  ShoutAction(class Scene* scene, std::string text): Behavior(scene) , m_Text(text) {}
 
   Status Update()
   {

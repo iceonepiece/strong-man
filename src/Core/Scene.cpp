@@ -3,7 +3,8 @@
 #include "Renderer.hpp"
 #include "Game.hpp"
 #include "UI.hpp"
-#include <iostream>
+#include "Fixture.hpp"
+#include "Behavior.hpp"
 
 Scene::Scene(Game* game)
 	:m_Game(game)
@@ -22,4 +23,15 @@ Scene::~Scene()
 		delete ui;
 	}
 	m_UIs.clear();
+
+	for (auto heap : m_Heaps)
+	{
+		delete heap;
+	}
+	m_Heaps.clear();
+}
+
+void Scene::AddHeap(Heap* heap)
+{
+	m_Heaps.emplace_back(heap);
 }

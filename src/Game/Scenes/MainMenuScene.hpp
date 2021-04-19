@@ -32,9 +32,7 @@ public:
       "Start",
       [](class Game* game)
       {
-        std::cout << "start onEnter()" << std::endl;
-        game->GetAudio()->PlayMusic("level");
-        //game->SetCurrentScene("LEVEL_1");
+        game->SetCurrentScene("LEVEL_1");
       }
     );
 
@@ -42,7 +40,6 @@ public:
       "Options",
       [](class Game* game)
       {
-        std::cout << "options onEnter()" << std::endl;
         game->GetAudio()->PlaySound("notification");
       }
     );

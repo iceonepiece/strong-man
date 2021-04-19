@@ -1,7 +1,7 @@
 #include "../Core/Font.hpp"
 #include "MyGame.hpp"
 #include "Scenes/MainMenuScene.hpp"
-#include "Scenes/XScene.hpp"
+#include "Scenes/YScene.hpp"
 
 void MyGame::LoadData()
 {
@@ -14,13 +14,13 @@ void MyGame::LoadData()
 	m_Fonts.emplace("DROIDSANS", font);
 	m_Fonts.emplace("DROIDSANS_BOLD", boldFont);
 
-	Scene* menuScene = new MainMenuScene(this);
-	Scene* xScene = new XScene(this);
+	//Scene* menuScene = new MainMenuScene(this);
+	Scene* yScene = new YScene(this);
 
-	m_Scenes.emplace("MENU", menuScene);
-	m_Scenes.emplace("LEVEL_1", xScene);
+	//m_Scenes.emplace("MENU", menuScene);
+	m_Scenes.emplace("LEVEL_1", yScene);
 
-	m_CurrentScene = menuScene;
+	m_CurrentScene = yScene;
 }
 
 void MyGame::UnloadData()

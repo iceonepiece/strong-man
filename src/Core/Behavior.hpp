@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "Heap.hpp"
 
 enum Status
 {
@@ -10,10 +11,10 @@ enum Status
   BH_RUNNING
 };
 
-class Behavior
+class Behavior : public Heap
 {
 public:
-  Behavior(): m_Status(BH_INVALID) {}
+  Behavior(class Scene* scene): Heap(scene), m_Status(BH_INVALID) {}
   virtual ~Behavior() {}
 
   Status Tick()
@@ -28,6 +29,7 @@ public:
   virtual Status Update() {}
   virtual void OnTerminate(Status status) {}
 
-private:
+protected:
+  class Scene* m_Scene;
   Status m_Status;
 };

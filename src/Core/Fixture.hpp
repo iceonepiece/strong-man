@@ -3,27 +3,20 @@
 #include <string>
 #include <iostream>
 #include <box2d/box2d.h>
+#include "../External/entt/entt.hpp"
+#include "Heap.hpp"
 
-class FixtureData
+class FixtureData : public Heap
 {
 public:
-	FixtureData(class Entity* entity, std::string tag = "")
-		:m_Entity(entity)
-		,m_Tag(tag)
-	{
-		std::cout << "FixtureData constructor: " << m_Tag << std::endl;
-	}
+	FixtureData(class Scene* scene, entt::entity entity, std::string tag = "");
+	virtual ~FixtureData();
 
-	virtual ~FixtureData()
-	{
-		std::cout << "FixtureData destructor: " << m_Tag << std::endl;
-	}
-
-	virtual void BeginContact(FixtureData* otherFixtureData, b2Contact* contact, bool isA) {};
-	virtual void EndContact(FixtureData* otherFixtureData, b2Contact* contact, bool isA) {};
+	virtual void BeginContact(FixtureData* otherFixtureData, b2Contact* contact, bool isA);
+	virtual void EndContact(FixtureData* otherFixtureData, b2Contact* contact, bool isA);
 
 	std::string m_Tag;
-	class Entity* m_Entity;
+	entt::entity m_Entity;
 };
 
 class Fixture

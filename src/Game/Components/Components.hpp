@@ -3,6 +3,7 @@
 #include <vector>
 #include "../../Core/Behavior.hpp"
 #include "../../Core/Input.hpp"
+#include "../../Core/Fixture.hpp"
 
 struct BoxComponent
 {
@@ -18,6 +19,7 @@ struct MoveComponent
 	MoveState m_MoveState;
 	bool m_Jump;
 	int m_NumGrounds;
+	std::vector<FixtureData*> m_GroundFixtures;
 
 	MoveComponent(): m_MoveState(MS_IDLE), m_Jump(false), m_NumGrounds(0) {}
 };

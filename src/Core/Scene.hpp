@@ -24,11 +24,15 @@ public:
 
 	class Font* GetFont(const std::string& fileName);
 
+	void AddHeap(class Heap* heap);
+
 protected:
 	class Game* m_Game;
 
 	std::vector<class UI*> m_UIs;
 	std::unordered_map<std::string, class Font*> m_Fonts;
+
+	std::vector<class Heap*> m_Heaps;
 
 	entt::registry m_Registry;
 
@@ -36,4 +40,5 @@ protected:
 	Camera m_Camera;
 
 	friend class Entity;
+	friend class EntityFactory;
 };
